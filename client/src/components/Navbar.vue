@@ -18,6 +18,9 @@
         </li> -->
       </ul>
       <!-- LOGIN COMPONENT HERE -->
+      <button class="btn btn-outline-light rounded" title="share a photo here " data-bs-target="#newPhotoModal"
+        data-bs-toggle="modal">Share
+        Photo</button>
       <div>
         <button class="btn text-light" @click="toggleTheme"><i class="mdi"
             :class="theme == 'light' ? 'mdi-weather-sunny' : 'mdi-weather-night'"></i></button>
@@ -25,12 +28,14 @@
       <Login />
     </div>
   </nav>
+  <NewPhotoModal />
 </template>
 
 <script>
 import { onMounted, ref } from 'vue';
 import { loadState, saveState } from '../utils/Store.js';
 import Login from './Login.vue';
+import NewPhotoModal from './NewPhotoModal.vue';
 export default {
   setup() {
 
@@ -49,7 +54,7 @@ export default {
       }
     }
   },
-  components: { Login }
+  components: { Login, NewPhotoModal }
 }
 </script>
 

@@ -26,5 +26,26 @@ class PhotosService {
 
 
     }
+    async destroyPhoto(photoId) {
+        const res = await api.delete(`api/photos/${photoId}`)
+        logger.log('destroying photo', res.data)
+        AppState.photos = AppState.photos.filter((photo) => photo.id != photoId)
+    }
+    async createPhoto(photoData) {
+        const res = await api.post('api/photos', photoData)
+        logger.log('created a photo!', res.data)
+        if (AppState.filter === 'Favorites') {
+            AppState.photos.push(new Photo(res.data))
+            return
+        }
+        if (AppState.filter === 'Home') {
+            AppState.photos.push(new Photo(res.data))
+            return
+        }
+        const newPhoto = new Photo(res.data)
+        AppState.photos.push(newPhoto)
+        // AppState.filteredRecipes.push(new Recipe(res.data))
+        return newPhoto
+    }
 }
 export const photosService = new PhotosService()
