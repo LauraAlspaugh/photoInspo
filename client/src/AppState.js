@@ -9,5 +9,6 @@ export const AppState = reactive({
   myFavoritePhotos: [],
   filteredPhotos: [],
   filter: '',
-  favorites: []
+  favorites: [],
+  activePhoto: null
 })

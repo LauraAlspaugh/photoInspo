@@ -1,6 +1,7 @@
 <template>
     <div class="photo-card mb-3 text-center">
-        <img :src="photoProp.img" alt="photo image">
+        <img @click="setActivePhoto(photoProp)" data-bs-toggle="modal" type="button" data-bs-target="#photoModal"
+            :src="photoProp.img" alt="photo image">
         <span v-if="isFavPhoto" @click.stop="unfavoritePhoto(isFavPhoto.favoriteId)" role="button"><i
                 class="fs-2 mdi mdi-heart text-center" title="unfavorite this photo"></i></span>
         <span v-else @click.stop="favoritePhoto(photoProp.id)" role="button"><i
@@ -9,6 +10,7 @@
         <p class="fs-4 photo-name">{{ photoProp.name }}</p>
         <p>{{ photoProp.description }}</p>
     </div>
+    <PhotoModal />
 </template>
 
 
@@ -19,6 +21,8 @@ import { Photo } from '../models/Photo.js';
 import { photosService } from '../services/PhotosService.js';
 import Pop from '../utils/Pop.js';
 import { logger } from '../utils/Logger.js';
+import PhotoModal from './PhotoModal.vue';
+
 export default {
     props: { photoProp: { type: Photo, required: true } },
     setup(props) {
@@ -29,37 +33,45 @@ export default {
             async favoritePhoto() {
                 try {
                     const photoId = props.photoProp.id;
-                    logger.log('favorite photo with photo id', photoId)
+                    logger.log('favorite photo with photo id', photoId);
                     await photosService.favoritePhoto(photoId);
                 }
                 catch (error) {
-                    logger.error(error)
-                    Pop.error(error)
+                    logger.error(error);
+                    Pop.error(error);
                 }
+            },
+            setActivePhoto(photoProp) {
+                photosService.setActivePhoto(photoProp)
+                // const photoId = photoProp.id
+
             },
             async unfavoritePhoto(favoriteId) {
                 try {
-
                     const recipeId = props.photoProp.id;
-                    logger.log('we are trying to unfavorite this photo', recipeId)
+                    logger.log('we are trying to unfavorite this photo', recipeId);
                     await photosService.unfavoritePhoto(favoriteId);
                 }
-                catch (error) { Pop.error(error) }
+                catch (error) {
+                    Pop.error(error);
+                }
             },
             async destroyPhoto() {
                 try {
-                    const wantstoDestroy = await Pop.confirm('Are you sure you want to destroy this Photo? ')
+                    const wantstoDestroy = await Pop.confirm('Are you sure you want to destroy this Photo? ');
                     if (!wantstoDestroy) {
-                        return
-                    } await photosService.destroyPhoto(props.photoProp.id)
-                } catch (error) {
-                    logger.error(error)
-                    Pop.error(error)
-
+                        return;
+                    }
+                    await photosService.destroyPhoto(props.photoProp.id);
+                }
+                catch (error) {
+                    logger.error(error);
+                    Pop.error(error);
                 }
             }
-        }
-    }
+        };
+    },
+    components: { PhotoModal }
 };
 </script>
 

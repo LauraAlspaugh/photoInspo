@@ -2,6 +2,7 @@ import { AppState } from "../AppState.js"
 import { Favorite } from "../models/Favorite.js"
 import { Photo } from "../models/Photo.js"
 import { logger } from "../utils/Logger.js"
+import { accountService } from "./AccountService.js"
 import { api } from "./AxiosService.js"
 
 class PhotosService {
@@ -23,6 +24,7 @@ class PhotosService {
         const res = await api.delete(`api/favorites/${favoriteId}`);
         AppState.myFavoritePhotos = AppState.myFavoritePhotos.filter(photo => photo.favoriteId != favoriteId);
 
+        await accountService.getFavorites()
         return res.data
 
 
@@ -70,6 +72,10 @@ class PhotosService {
         } logger.log('filter four')
         AppState.filter = filter
 
+    }
+    setActivePhoto(photoProp) {
+
+        AppState.activePhoto = photoProp
     }
 }
 export const photosService = new PhotosService()

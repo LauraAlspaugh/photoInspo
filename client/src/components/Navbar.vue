@@ -1,8 +1,9 @@
 <template>
   <nav class="navbar navbar-expand-sm navbar-dark nav-color px-3">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
-      <div class="d-flex flex-column align-items-center">
-        <i class="mdi mdi-barley fs-1 photo-title"><span class="plan-title fs-1 p-0">Inspire</span></i>
+      <div role="button" class="d-flex flex-column align-items-center">
+        <i class="mdi mdi-barley fs-1 photo-title"><span class="plan-title fs-1 p-0"
+            title="back to homepage">Inspire</span></i>
       </div>
     </router-link>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
@@ -22,7 +23,7 @@
         data-bs-toggle="modal">Share
         Photo</button>
       <div>
-        <button class="btn text-light" @click="toggleTheme"><i class="mdi"
+        <button type="button" title="toggle light or dark mode" class="btn text-light" @click="toggleTheme"><i class="mdi"
             :class="theme == 'light' ? 'mdi-weather-sunny' : 'mdi-weather-night'"></i></button>
       </div>
       <Login />
