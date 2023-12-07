@@ -47,5 +47,28 @@ class PhotosService {
         // AppState.filteredRecipes.push(new Recipe(res.data))
         return newPhoto
     }
+    filterPhotos(filter) {
+
+        if (filter == "Home") {
+            AppState.filteredPhotos = AppState.photos
+        } logger.log('filter two ')
+
+        if (filter == "Created") {
+            AppState.filteredPhotos = AppState.photos.filter((photo) => photo.creatorId == AppState.account.id)
+        } logger.log('filter three ')
+
+        if (filter == "Favorites") {
+            const filteredPhotos = []
+            const photos = AppState.photos
+            for (let i = 0; i < AppState.myFavoritePhotos.length; i++) {
+                let favorite = photos.find(photo => photo.id == AppState.myFavoritePhotos[i].id)
+                filteredPhotos.push(favorite)
+            }
+            AppState.filteredPhotos = filteredPhotos
+
+        } logger.log('filter four')
+        AppState.filter = filter
+
+    }
 }
 export const photosService = new PhotosService()

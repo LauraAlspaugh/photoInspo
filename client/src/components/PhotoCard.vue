@@ -23,6 +23,7 @@ export default {
     props: { photoProp: { type: Photo, required: true } },
     setup(props) {
         return {
+            myFavoritePhotos: computed(() => AppState.myFavoritePhotos),
             photos: computed(() => AppState.photos),
             isFavPhoto: computed(() => AppState.myFavoritePhotos.find((photo) => photo.id == props.photoProp.id || photo.photoId == props.photoProp.id)),
             async favoritePhoto() {

@@ -6,6 +6,14 @@
       </div>
     </section>
     <section class="row">
+      <div class="col-12 mt-3 p-3 d-flex rounded-pill justify-content-around">
+        <button class="btn btn-outline-dark w-100 mx-3" @click="filterPhotos(filter)" v-for="filter in filters"
+          :key="filter">{{ filter
+          }}</button>
+
+      </div>
+    </section>
+    <section class="row">
       <div v-for="photo in photos" :key="photo.id" class="col-4 p-4 d-flex justify-content-center">
         <PhotoCard :photoProp="photo" />
       </div>
@@ -23,6 +31,7 @@ import PhotoCard from '../components/PhotoCard.vue';
 
 export default {
   setup() {
+    const filters = ["Home", "Created", "Favorites"]
     onMounted(() => {
       getPhotos();
     });
@@ -36,7 +45,11 @@ export default {
       }
     }
     return {
-      photos: computed(() => AppState.photos)
+      filters,
+      photos: computed(() => AppState.filteredPhotos),
+      filterPhotos(filter) {
+        photosService.filterPhotos(filter)
+      },
     };
   },
   components: { PhotoCard }
