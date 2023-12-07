@@ -14,7 +14,7 @@
       </div>
     </section>
     <section class="row">
-      <div v-for="photo in photos" :key="photo.id" class="col-4 p-4 d-flex justify-content-center">
+      <div v-for="photo in photos" :key="photo.id" class=" col-12 col-md-4 p-4 d-flex justify-content-center">
         <PhotoCard :photoProp="photo" />
       </div>
     </section>

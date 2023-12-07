@@ -48,7 +48,7 @@ export default {
             },
             async destroyPhoto() {
                 try {
-                    const wantstoDestroy = await Pop.confirm('Are you sure you want to destroy this Photot? ')
+                    const wantstoDestroy = await Pop.confirm('Are you sure you want to destroy this Photo? ')
                     if (!wantstoDestroy) {
                         return
                     } await photosService.destroyPhoto(props.photoProp.id)
