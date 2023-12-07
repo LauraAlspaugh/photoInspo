@@ -9,6 +9,7 @@ class PhotosService {
         const res = await api.get('api/photos')
         logger.log(res.data)
         AppState.photos = res.data.map(pojo => new Photo(pojo))
+        AppState.filteredPhotos = res.data.map(photo => new Photo(photo))
     }
     async favoritePhoto(photoId) {
         logger.log(`creating a favorite with ${photoId}`)
