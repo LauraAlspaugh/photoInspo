@@ -1,0 +1,8 @@
+version: '3'
+services:
+  app:
+    image: your-dockerhub-username/photoInspo:latest
+    env_file:
+      - photoInspo-env
+    ports:
+      - "7045:80"
